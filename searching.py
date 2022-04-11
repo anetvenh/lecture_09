@@ -43,9 +43,34 @@ def linear_search(unordered_nbrs, searched_nbr):
     return output
 
 
+def pattern_search(sequence, pattern):
+    """
+    Searches pattern in sequence.
+
+    :param sequence: (str) sequence to search pattern in
+    :param pattern: (str) pattern to search
+    :return output: (set) set of positions of first letter of pattern in sequence
+    """
+    positions = set()
+
+    for i in range(len(sequence)-len(pattern)+1):
+        subsequence = sequence[i:(i+len(pattern))]
+        match = True
+
+        for lttr_subseq, lttr_patt in zip(subsequence, pattern):
+            if lttr_subseq != lttr_patt:
+                match = False
+                break
+        if match:
+            positions.add(i)
+
+
+    return positions
+
+
 def main():
-    sequence = read_data("sequential.json", "unordered_numbers")
-    print(linear_search(sequence, 9))
+    sequence = read_data("sequential.json", "dna_sequence")
+    print(pattern_search(sequence, "ATA"))
 
 if __name__ == '__main__':
     main()
